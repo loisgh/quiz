@@ -1,5 +1,5 @@
 from read_questions import ReadQuestions
-from flask import Flask
+from flask import Flask, render_template
 app = Flask(__name__)
 
 
@@ -14,8 +14,15 @@ def main():
 
 @app.route('/get_a_question/<quest_num>')
 def get_a_question(quest_num):
-    quest = ReadQuestions.get_question(questions, int(quest_num))
-    return quest
+    # quest = ReadQuestions.get_question(questions, int(quest_num))
+    quest = str(ReadQuestions.get_question_raw_json(questions, int(quest_num)))
+    quest = eval(quest)
+    return render_template('quiz_template.html',
+                           order=quest["order"],
+                           question_text=quest["question_text"],
+                           type=quest['answers']['type'],
+                           answers=quest['answers']['answer']
+                           )
 
 
 @app.route('/total_questions')

@@ -39,6 +39,11 @@ class ReadQuestions():
         return out
 
     @staticmethod
+    def get_question_raw_json(questions, num):
+        question = questions[num]
+        return question
+
+    @staticmethod
     def find_questions_without_answers():
         quests = open("json_quest_out.txt", "r")
         questions = eval(quests.read())
@@ -55,7 +60,7 @@ class ReadQuestions():
 
     @staticmethod
     def get_question_order(question):
-        return question["number"]["order"]
+        return question["order"]
 
     @staticmethod
     def get_question_text(question):
