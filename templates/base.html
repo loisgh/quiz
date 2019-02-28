@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{title}}</title>
+    <script>
+        function checkCorrect() {
+            var correct = document.getElementById("correct").value;
+            answer = document.querySelectorAll('input[type=radio]');
+            for (i = 0; i < answer.length; i++) {
+                if (answer[i].value == correct) {
+                    document.getElementsByTagName("li")[1].style.backgroundColor = "green"
+                    }
+            }
+        }
+    </script>
+    <style>
+        .quest {
+            font-family: "Arial";
+            font-size: 14pt;
+            margin-left: 90px;
+            margin-right: 90px;
+            line-height: 1.5em;
+        }
+        .h1 {
+            font-family: "Arial";
+            font-size: 20pt;
+            margin-left: 90px;
+            margin-right: 90px;
+            line-height: 2em;
+        }
+        .radio-check {
+            display: inline-block;
+            vertical-align: middle;
+            height: 1.5em;
+        }
+        .center1{
+            width:100px;
+            margin-left:auto;
+            margin-right:auto;
+        }
+        .center2{
+            width:200px;
+            margin-left:auto;
+            margin-right:auto;
+        }
+        .center3{
+            width:300px;
+            margin-left:auto;
+            margin-right:auto;
+        }
+        .center4{
+            width:500px;
+            margin-left:auto;
+            margin-right:auto;
+        }
+        .button {
+            width: 150px;
+            margin-left:auto;
+            margin-right:auto;
+            font: bold 18px Arial;
+            text-decoration: none;
+            background-color: #EEEEEE;
+            color: #333333;
+            padding: 2px 6px 2px 6px;
+            border-top: 1px solid #CCCCCC;
+            border-right: 1px solid #333333;
+            border-bottom: 1px solid #333333;
+            border-left: 1px solid #CCCCCC;
+        }
+
+    }
+    </style>
+</head>
+<body>
+    {% block body %}
+    {% endblock %}
+</body>
+</html>

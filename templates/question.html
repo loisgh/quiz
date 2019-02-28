@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block script %}
+<script type="javascript" src="questions.js"></script>
+{% endblock %}
+{% block body %}
+    <div><br/><br/><br/><br/></div>
+    <div class="center3">
+        <a class="button" href="/get_next_question/">Next</a>
+        &nbsp;&nbsp;&nbsp;
+        <input type="submit" class="button" onclick="checkCorrect()" name="submit"/>
+    </div>
+    <div class="quest">
+        <b>Question No: {{order}}:</b>&nbsp;&nbsp;{{question_text}}
+    </div>
+    <div>
+        <ol>
+        {% for answer in answers %}
+        {% set idx = loop.index0 + 1 %}
+        <li class="quest" name="{{idx}}"><input class="radio-check" type="{{type}}";
+                                 name="{{idx}}";
+                                 value="{{idx}}">&nbsp;{{answer}}</li>
+        {% endfor %}
+        </ol>
+    </div>
+    <div>
+        <input type="hidden" id="correct" value="{{correct}}">
+    </div>
+{% endblock %}

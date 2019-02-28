@@ -1,3 +1,5 @@
+import random
+
 class ReadQuestions():
 
     @staticmethod
@@ -5,6 +7,12 @@ class ReadQuestions():
         quests = open("json_quest_out.txt", "r")
         questions = eval(quests.read())
         return questions["questions"]["question"]
+
+    @staticmethod
+    def get_random_questions():
+        quest = ReadQuestions.load_questions()
+        total = ReadQuestions.get_number_of_questions(quest)
+        return random.sample(range(1, total),(total - 1))
 
     @staticmethod
     def go_through_each_question():
