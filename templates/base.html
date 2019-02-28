@@ -4,11 +4,11 @@
     <title>{{title}}</title>
     <script>
         function checkCorrect() {
-            var correct = document.getElementById("correct").value;
-            answer = document.querySelectorAll('input[type=radio]');
+            var correct = document.getElementById("correct").value.split(",")
+            var answer = document.querySelectorAll('input[type=checkbox], input[type=radio]');
             for (i = 0; i < answer.length; i++) {
-                if (answer[i].value == correct) {
-                    document.getElementsByTagName("li")[1].style.backgroundColor = "green"
+                if (correct.includes(answer[i].value)) {
+                    document.getElementsByTagName("li")[i].style.backgroundColor = "green"
                     }
             }
         }
