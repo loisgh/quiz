@@ -2,9 +2,27 @@ import random
 
 class ReadQuestions():
 
+    def score_questions(self, quest_num, answer, category, correct, score={"results": []}):
+        # schema of result
+        '''
+            {results:[
+                {result: answer, correct: correct, right_or_wrong: <1 or 0>, category: category}
+                ]
+            }
+        '''
+        ans = set(answer.split(","))
+        cor = set(correct.split(","))
+        if ans - cor == set():
+            right_or_wrong = 1
+        else:
+            right_or_wrong = 0
+        the_result = {"quest_num": quest_num, "result": answer, "correct": correct, "right_or_wrong": right_or_wrong, "category": category}
+        score["results"].append(the_result)
+        return score
+
     @staticmethod
     def load_questions():
-        quests = open("json_quest_out.txt", "r")
+        quests = open("json_quest_out_v2.txt", "r")
         questions = eval(quests.read())
         return questions["questions"]["question"]
 
@@ -86,9 +104,13 @@ class ReadQuestions():
     def get_correct_answers(answer):
         return "corrrect choice: {}".format(answer)
 
-# r = ReadQuestions()
+r = ReadQuestions()
 # # r.go_through_each_question()
 # # r.find_questions_without_answers()
 # q = r.load_questions()
 # print("The number of questions is: {}".format(r.get_number_of_questions(q)))
 # r.get_question(q, 70)
+score = r.score_questions("1", "1,2", "Deployment and Provisioning", "1,2")
+print(score)
+score = r.score_questions("2", "3,4", "Deployment and Provisioning", "3,4")
+print(score)
