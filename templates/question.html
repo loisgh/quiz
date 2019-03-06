@@ -4,12 +4,15 @@
 {% endblock %}
 {% block body %}
     <div><br/><br/><br/><br/></div>
-    <div class="center3">
-        <a class="button" href="/get_next_question/">Next</a>
+    <div class="center4">
+        <a class="button" href="/get_next_question/">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Next&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
         &nbsp;&nbsp;&nbsp;
-        <input type="submit" class="button" onclick="checkCorrect()" name="submit"/>
+        <!--TODO Change check correct to wrapper function that also stores value of correct answer -->
+        <input type="submit" class="button" onclick="submit()" name="submit"/>
     </div>
     <div class="quest">
+        <div><b>Category:</b>&nbsp;&nbsp;{{category}}</div>
         <b>Question No: {{order}}:</b>&nbsp;&nbsp;{{question_text}}
     </div>
     <div>
@@ -23,6 +26,12 @@
         </ol>
     </div>
     <div>
+        <input type="hidden" id="order" value="{{order}}">
+    </div>
+    <div>
         <input type="hidden" id="correct" value="{{correct}}">
+    </div>
+    <div>
+        <input type="hidden" id="category" value="{{category}}">
     </div>
 {% endblock %}

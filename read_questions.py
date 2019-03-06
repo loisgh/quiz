@@ -1,6 +1,32 @@
 import random
 
-class ReadQuestions():
+#TODO Fix end of questions to display a report.
+class Questions():
+
+    def category_tally(self, results):
+        by_category = {}
+        for result in results['results']:
+            if 'right_or_wrong' in result:
+                if result['category'] in by_category:
+                    value = by_category[result['category']]
+                    value += 1
+                else:
+                    value = 1
+                by_category[result['category']] = value
+        pts = Questions.get_points_per_question()
+        {k*pts:v for k,v in by_category}
+        return by_category
+
+    @staticmethod
+    def get_points_per_question():
+        q = Questions.load_questions()
+        num_questions = Questions.get_number_of_questions_by_category(q)
+        return round(100 / num_questions, 2)
+
+    def final_tally(self, results):
+        total_right = [result['right_or_wrong'] for result in results['results']]
+        pts_per_question = Questions.get_points_per_question()
+        return total_right * pts_per_question
 
     def score_questions(self, quest_num, answer, category, correct, score={"results": []}):
         # schema of result
@@ -28,61 +54,30 @@ class ReadQuestions():
 
     @staticmethod
     def get_random_questions():
-        quest = ReadQuestions.load_questions()
-        total = ReadQuestions.get_number_of_questions(quest)
+        quest = Questions.load_questions()
+        total = Questions.get_number_of_questions(quest)
         return random.sample(range(1, total),(total - 1))
-
-    @staticmethod
-    def go_through_each_question():
-        quests = open("json_quest_out.txt", "r")
-        questions = eval(quests.read())
-        question_list = questions["questions"]["question"]
-
-        for question in question_list:
-            print("Question: {}".format(ReadQuestions.get_question_order(question)))
-            print("{}".format(ReadQuestions.get_question_text(question)))
-            for answer in question['answers']['answer']:
-                print(ReadQuestions.get_all_answers_in_order(answer))
-            if 'correct' in question['answers']:
-                print(ReadQuestions.get_correct_answers(question['answers']['correct']))
-            else:
-                print("There is no answer for this question")
 
     @staticmethod
     def get_number_of_questions(questions):
         return len(questions)
 
     @staticmethod
-    def get_question(questions, num):
-        question = questions[num]
-        out = ""
-        out += "Question: {}".format(ReadQuestions.get_question_order(question)) + "\n"
-        out += "{}".format(ReadQuestions.get_question_text(question)) + "\n"
-        for answer in question['answers']['answer']:
-            out += ReadQuestions.get_all_answers_in_order(answer)  + "\n"
-        if 'correct' in question['answers']:
-            out += ReadQuestions.get_correct_answers(question['answers']['correct'])
-        return out
+    def get_number_of_questions_by_category(questions):
+        num_by_cat = {}
+        for question in questions:
+            if question['category'] in num_by_cat:
+                value = num_by_cat[question['category']]
+                value += 1
+            else:
+                value = 1
+            num_by_cat[question['category']] = value
+        return num_by_cat
 
     @staticmethod
     def get_question_raw_json(questions, num):
         question = questions[num]
         return question
-
-    @staticmethod
-    def find_questions_without_answers():
-        quests = open("json_quest_out.txt", "r")
-        questions = eval(quests.read())
-        question_list = questions["questions"]["question"]
-
-        for question in question_list:
-            if 'correct' in question['answers']:
-                pass
-            else:
-                print("Question: {}".format(ReadQuestions.get_question_order(question)))
-                print("{}".format(ReadQuestions.get_question_text(question)))
-                for answer in question['answers']['answer']:
-                    print(ReadQuestions.get_all_answers_in_order(answer))
 
     @staticmethod
     def get_question_order(question):
@@ -103,14 +98,3 @@ class ReadQuestions():
     @staticmethod
     def get_correct_answers(answer):
         return "corrrect choice: {}".format(answer)
-
-r = ReadQuestions()
-# # r.go_through_each_question()
-# # r.find_questions_without_answers()
-# q = r.load_questions()
-# print("The number of questions is: {}".format(r.get_number_of_questions(q)))
-# r.get_question(q, 70)
-score = r.score_questions("1", "1,2", "Deployment and Provisioning", "1,2")
-print(score)
-score = r.score_questions("2", "3,4", "Deployment and Provisioning", "3,4")
-print(score)

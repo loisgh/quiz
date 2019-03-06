@@ -32,7 +32,17 @@
     margin-left:auto;
     margin-right:auto;
 }
+.center375{
+    width:375px;
+    margin-left:auto;
+    margin-right:auto;
+}
 .center4{
+    width:400px;
+    margin-left:auto;
+    margin-right:auto;
+}
+.center5{
     width:500px;
     margin-left:auto;
     margin-right:auto;
@@ -50,4 +60,5 @@
     border-right: 1px solid #333333;
     border-bottom: 1px solid #333333;
     border-left: 1px solid #CCCCCC;
+    border-radius: 25px;
 }
