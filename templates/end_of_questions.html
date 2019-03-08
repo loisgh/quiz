@@ -3,4 +3,12 @@
     <div><br/><br/><br/><br/></div>
     <div class="quest center5">You have reached the end of the questions.</div>
     <div class="quest center3"><a href="/get_next_question/">Click Here to Start Again</a></div>
+    <div class="quest center5">
+        <ol>
+            {% for k,v in cat_totals.items() %}
+                <li>{{k}}: {{v}}</li>
+            {% endfor %}
+        </ol>
+        <div>Score: {{total}}</div>
+    </div>
 {% endblock %}

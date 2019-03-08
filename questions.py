@@ -14,17 +14,17 @@ class Questions():
                     value = 1
                 by_category[result['category']] = value
         pts = Questions.get_points_per_question()
-        {k*pts:v for k,v in by_category}
-        return by_category
+        by_category_pts = {k:round(v*pts,2) for k,v in by_category.items()}
+        return by_category_pts
 
     @staticmethod
     def get_points_per_question():
         q = Questions.load_questions()
-        num_questions = Questions.get_number_of_questions_by_category(q)
+        num_questions = Questions.get_number_of_questions(q)
         return round(100 / num_questions, 2)
 
     def final_tally(self, results):
-        total_right = [result['right_or_wrong'] for result in results['results']]
+        total_right = sum([int(result['right_or_wrong']) for result in results['results']])
         pts_per_question = Questions.get_points_per_question()
         return total_right * pts_per_question
 

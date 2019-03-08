@@ -1,11 +1,13 @@
-#TODO when change is done in read questions, remove load questions where no longer necessary.
 import os
-from read_questions import Questions
+import json
+from questions import Questions
 from flask import Flask, render_template, session, request
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.session_cookie_name = 'quiz-WebSession'
 app.config['DEBUG'] = False
+
+questions = Questions.load_questions()
 
 @app.route('/')
 def main():
@@ -21,7 +23,10 @@ def get_next_question():
         rands = Questions.get_random_questions()
     elif not len(session['rands']):
         del session['rands']
-        return render_template('end_of_questions.html',title="QUIZ")
+        rq = Questions()
+        total = rq.final_tally(session['scores'])
+        cat_totals = rq.category_tally(session['scores'])
+        return render_template('end_of_questions.html',title="QUIZ", total=total, cat_totals=cat_totals)
     else:
         rands = session['rands']
 
@@ -46,16 +51,12 @@ def get_next_question():
 def score_questions():
     rq = Questions()
     quest_num = request.args.get('order')
-    print(quest_num)
     answer = request.args.get('answer')
-    print(answer)
     category = request.args.get('category')
-    print(category)
     correct = request.args.get('correct')
-    print(correct)
     if quest_num and answer and category and correct:
-        score = rq.score_questions(quest_num, answer, category, correct)
-        print(score)
+        scores = rq.score_questions(quest_num, answer, category, correct)
+        session['scores'] = scores
         return "OK"
     else:
         return "Problem with your data"

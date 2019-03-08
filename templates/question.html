@@ -1,15 +1,17 @@
+<!--TODO Fix radio buttons so that only one can be checked -->
 {% extends "base.html" %}
 {% block script %}
 <script type="javascript" src="questions.js"></script>
 {% endblock %}
 {% block body %}
     <div><br/><br/><br/><br/></div>
-    <div class="center4">
+    <div class="center5">
+        <input type="submit" class="button" onclick="submit()" name="submit"/>
+        &nbsp;
         <a class="button" href="/get_next_question/">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Next&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-        &nbsp;&nbsp;&nbsp;
-        <!--TODO Change check correct to wrapper function that also stores value of correct answer -->
-        <input type="submit" class="button" onclick="submit()" name="submit"/>
+        &nbsp;
+        <input type="reset" onclick="reset()" class="button" />
     </div>
     <div class="quest">
         <div><b>Category:</b>&nbsp;&nbsp;{{category}}</div>

@@ -44,6 +44,13 @@
             return ans.substring(0, ans.length - 1);
         }
 
+        function reset() {
+            var radios = document.getElementsByClassName('radio-check');
+            for (i = 0; i < radios.length; i++){
+                radios[i].checked = false;
+            }
+        }
+
         function httpGetAsync()
         {
             var url = "/score_questions?" +
