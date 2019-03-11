@@ -18,6 +18,20 @@ class Questions():
         return by_category_pts
 
     @staticmethod
+    def questions_by_category(self):
+        q = Questions.load_questions()
+        category_totals = {}
+        for question in q:
+            if q['category'] in category_totals:
+                value = category_totals['category']
+                value += 1
+            else:
+                value = 1
+            category_totals[q['category']] = value
+        return category_totals
+
+
+    @staticmethod
     def get_points_per_question():
         q = Questions.load_questions()
         num_questions = Questions.get_number_of_questions(q)
@@ -48,7 +62,7 @@ class Questions():
 
     @staticmethod
     def load_questions():
-        quests = open("json_quest_out_v2.txt", "r")
+        quests = open("json_quest_out_test.txt", "r")
         questions = eval(quests.read())
         return questions["questions"]["question"]
 

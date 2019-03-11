@@ -6,9 +6,10 @@
     <div class="quest center5">
         <ol>
             {% for k,v in cat_totals.items() %}
-                <li>{{k}}: {{v}}</li>
+                <li>{{k}}: {{v}}, ({{num_per_cat[k]}} questions)</li>
             {% endfor %}
         </ol>
         <div>Score: {{total}}</div>
     </div>
+    <input type="hidden" name="num_quest" value="{{num_per_cat}}" />
 {% endblock %}

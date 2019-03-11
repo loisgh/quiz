@@ -26,7 +26,9 @@ def get_next_question():
         rq = Questions()
         total = rq.final_tally(session['scores'])
         cat_totals = rq.category_tally(session['scores'])
-        return render_template('end_of_questions.html',title="QUIZ", total=total, cat_totals=cat_totals)
+        cat_quest_numbers = Questions.get_number_of_questions_by_category(Questions.load_questions())
+        return render_template('end_of_questions.html',title="QUIZ", total=total, cat_totals=cat_totals,
+                               num_per_cat=cat_quest_numbers)
     else:
         rands = session['rands']
 
