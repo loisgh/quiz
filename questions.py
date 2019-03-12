@@ -1,7 +1,4 @@
-import random
-
-#TODO Fix end of questions to display a report.
-class Questions():
+class Questions:
 
     def category_tally(self, results):
         by_category = {}
@@ -14,22 +11,21 @@ class Questions():
                     value = 1
                 by_category[result['category']] = value
         pts = Questions.get_points_per_question()
-        by_category_pts = {k:round(v*pts,2) for k,v in by_category.items()}
+        by_category_pts = {k: round(v*pts, 2) for k, v in by_category.items()}
         return by_category_pts
 
     @staticmethod
-    def questions_by_category(self):
+    def questions_by_category():
         q = Questions.load_questions()
         category_totals = {}
-        for question in q:
-            if q['category'] in category_totals:
+        for quest in q:
+            if quest['category'] in category_totals:
                 value = category_totals['category']
                 value += 1
             else:
                 value = 1
-            category_totals[q['category']] = value
+            category_totals[quest['category']] = value
         return category_totals
-
 
     @staticmethod
     def get_points_per_question():
@@ -44,33 +40,28 @@ class Questions():
 
     def score_questions(self, quest_num, answer, category, correct, score={"results": []}):
         # schema of result
-        '''
+        """
             {results:[
                 {result: answer, correct: correct, right_or_wrong: <1 or 0>, category: category}
                 ]
             }
-        '''
+        """
         ans = set(answer.split(","))
         cor = set(correct.split(","))
         if ans - cor == set():
             right_or_wrong = 1
         else:
             right_or_wrong = 0
-        the_result = {"quest_num": quest_num, "result": answer, "correct": correct, "right_or_wrong": right_or_wrong, "category": category}
+        the_result = {"quest_num": quest_num, "result": answer, "correct": correct, "right_or_wrong": right_or_wrong,
+                      "category": category}
         score["results"].append(the_result)
         return score
 
     @staticmethod
     def load_questions():
-        quests = open("json_quest_out_test.txt", "r")
+        quests = open("json_quest_out_v2.txt", "r")
         questions = eval(quests.read())
         return questions["questions"]["question"]
-
-    @staticmethod
-    def get_random_questions():
-        quest = Questions.load_questions()
-        total = Questions.get_number_of_questions(quest)
-        return random.sample(range(1, total),(total - 1))
 
     @staticmethod
     def get_number_of_questions(questions):
