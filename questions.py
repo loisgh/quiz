@@ -61,6 +61,7 @@ class Questions:
     def load_questions():
         quests = open("json_quest_out_v2.txt", "r")
         questions = eval(quests.read())
+        quests.close()
         return questions["questions"]["question"]
 
     @staticmethod
