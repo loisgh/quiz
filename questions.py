@@ -6,9 +6,9 @@ class Questions:
             if 'right_or_wrong' in result:
                 if result['category'] in by_category:
                     value = by_category[result['category']]
-                    value += 1
+                    value += result['right_or_wrong']
                 else:
-                    value = 1
+                    value = result['right_or_wrong']
                 by_category[result['category']] = value
         pts = Questions.get_points_per_question()
         by_category_pts = {k: round(v*pts, 2) for k, v in by_category.items()}
