@@ -21,9 +21,9 @@
         <ol>
         {% for answer in answers %}
         {% set idx = loop.index0 + 1 %}
-        <li class="quest" name="{{idx}}"><input class="radio-check" type="{{type}}";
+        <li class="quest" name="{{idx}}"><label><input class="radio-check" type="{{type}}";
                                  name="{{idx}}";
-                                 value="{{idx}}">&nbsp;{{answer}}</li>
+                                 value="{{idx}}">&nbsp;{{answer}}</label></li>
         {% endfor %}
         </ol>
     </div>

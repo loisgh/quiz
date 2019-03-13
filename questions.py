@@ -1,3 +1,5 @@
+import random
+
 class Questions:
 
     def category_tally(self, results):
@@ -63,6 +65,12 @@ class Questions:
         questions = eval(quests.read())
         quests.close()
         return questions["questions"]["question"]
+
+    @staticmethod
+    def get_random_questions():
+        quest = Questions.load_questions()
+        total = Questions.get_number_of_questions(quest)
+        return random.sample(range(1, total),(total - 1))
 
     @staticmethod
     def get_number_of_questions(questions):
