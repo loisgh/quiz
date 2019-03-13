@@ -102,20 +102,20 @@ class TestQuestions(unittest.TestCase):
     @mock.patch('questions.Questions.get_number_of_questions')
     def test_get_points_per_question(self, mock_get_number_of_questions):
         mock_get_number_of_questions.return_value = 49
-        expected_result = round(100 /49 , 2)
-        self.assertEqual(Questions.get_points_per_question(),expected_result)
+        expected_result = round(100 / 49, 2)
+        self.assertEqual(Questions.get_points_per_question(), expected_result)
 
     @mock.patch('questions.Questions.get_points_per_question')
     def test_category_tally(self, mock_get_points_per_question):
         mock_get_points_per_question.return_value = 16.67
         exp_result = {'Monitoring and Reporting': 33.34, 'Storage and Management': 33.34}
         results = {'results': [
-        {"quest_num": 1, "result": 1, "correct": 1, "right_or_wrong": 1, "category": 'Monitoring and Reporting'},
-        {"quest_num": 2, "result": 2, "correct": 3, "right_or_wrong": 0, "category": 'Monitoring and Reporting'},
-        {"quest_num": 3, "result": 3, "correct": 3, "right_or_wrong": 1, "category": 'Monitoring and Reporting'},
-        {"quest_num": 4, "result": 1, "correct": 1, "right_or_wrong": 1, "category": 'Storage and Management'},
-        {"quest_num": 5, "result": 2, "correct": 3, "right_or_wrong": 0, "category": 'Storage and Management'},
-        {"quest_num": 6, "result": 3, "correct": 3, "right_or_wrong": 1, "category": 'Storage and Management'}
+            {"quest_num": 1, "result": 1, "correct": 1, "right_or_wrong": 1, "category": 'Monitoring and Reporting'},
+            {"quest_num": 2, "result": 2, "correct": 3, "right_or_wrong": 0, "category": 'Monitoring and Reporting'},
+            {"quest_num": 3, "result": 3, "correct": 3, "right_or_wrong": 1, "category": 'Monitoring and Reporting'},
+            {"quest_num": 4, "result": 1, "correct": 1, "right_or_wrong": 1, "category": 'Storage and Management'},
+            {"quest_num": 5, "result": 2, "correct": 3, "right_or_wrong": 0, "category": 'Storage and Management'},
+            {"quest_num": 6, "result": 3, "correct": 3, "right_or_wrong": 1, "category": 'Storage and Management'}
         ]}
         rq = Questions()
         cat_result = rq.category_tally(results)
@@ -123,18 +123,16 @@ class TestQuestions(unittest.TestCase):
 
     @mock.patch('questions.Questions.get_points_per_question')
     def test_final_tally(self, mock_get_points_per_question):
-        exp_result = {'Monitoring and Reporting': 33.34, 'Storage and Management': 33.34}
         results = {'results': [
-        {"quest_num": 1, "result": 1, "correct": 1, "right_or_wrong": 1, "category": 'Monitoring and Reporting'},
-        {"quest_num": 2, "result": 2, "correct": 3, "right_or_wrong": 0, "category": 'Monitoring and Reporting'},
-        {"quest_num": 3, "result": 3, "correct": 3, "right_or_wrong": 1, "category": 'Monitoring and Reporting'},
-        {"quest_num": 4, "result": 1, "correct": 1, "right_or_wrong": 1, "category": 'Storage and Management'},
-        {"quest_num": 5, "result": 2, "correct": 3, "right_or_wrong": 0, "category": 'Storage and Management'},
-        {"quest_num": 6, "result": 3, "correct": 3, "right_or_wrong": 1, "category": 'Storage and Management'}
+            {"quest_num": 1, "result": 1, "correct": 1, "right_or_wrong": 1, "category": 'Monitoring and Reporting'},
+            {"quest_num": 2, "result": 2, "correct": 3, "right_or_wrong": 0, "category": 'Monitoring and Reporting'},
+            {"quest_num": 3, "result": 3, "correct": 3, "right_or_wrong": 1, "category": 'Monitoring and Reporting'},
+            {"quest_num": 4, "result": 1, "correct": 1, "right_or_wrong": 1, "category": 'Storage and Management'},
+            {"quest_num": 5, "result": 2, "correct": 3, "right_or_wrong": 0, "category": 'Storage and Management'},
+            {"quest_num": 6, "result": 3, "correct": 3, "right_or_wrong": 1, "category": 'Storage and Management'}
         ]}
         rq = Questions()
         mock_get_points_per_question.return_value = 16.67
         final = rq.final_tally(results)
         exp_result = 66.68
         self.assertEqual(final, exp_result)
-
