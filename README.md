@@ -1,8 +1,7 @@
 # quiz
 an app for creating your own quizzes with your own data?
 
-####This is a work in progress.  At the present moment this project works with one specified quiz file.  I'm planning to add the 
-following enhancements. 
+#### This is a work in progress.  At the present moment this project works with one specified quiz file.  I'm planning to add the following enhancements. 
 
 1. Use dynamodb as cache
 2. Add security
