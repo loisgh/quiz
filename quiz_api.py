@@ -24,12 +24,9 @@ def favico():
 @app.route('/get_next_question/')
 def get_next_question():
     if not 'rands' in session:
-        print("create the rands")
         rands = Questions.get_random_questions()
-        print(rands)
     else:
         rands = session['rands']
-        print(rands)
 
     if len(rands):
         remain = len(rands)
