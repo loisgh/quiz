@@ -35,7 +35,7 @@ class Questions:
         num_questions = Questions.get_number_of_questions(q)
         return round(100 / num_questions, 2)
 
-    def final_tally(self, results):
+    def final_tally(self, results, session):
         total_right = sum([int(result['right_or_wrong']) for result in results['results']])
         pts_per_question = Questions.get_points_per_question()
         return total_right * pts_per_question
@@ -61,7 +61,8 @@ class Questions:
 
     @staticmethod
     def load_questions():
-        quests = open("json_quest_out_v2.txt", "r")
+        quests = open("json_quest_out_test.txt", "r")
+        # quests = open("json_quest_out_v2.txt", "r")
         questions = eval(quests.read())
         quests.close()
         return questions["questions"]["question"]
@@ -70,6 +71,7 @@ class Questions:
     def get_random_questions():
         quest = Questions.load_questions()
         total = Questions.get_number_of_questions(quest)
+        total += 1
         return random.sample(range(1, total),(total - 1))
 
     @staticmethod
