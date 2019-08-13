@@ -1,5 +1,3 @@
-import random
-
 class Questions:
 
     def category_tally(self, results):
@@ -35,14 +33,14 @@ class Questions:
         num_questions = Questions.get_number_of_questions(q)
         return round(100 / num_questions, 2)
 
-    def final_tally(self, results, session):
+    def final_tally(self, results):
         total_right = sum([int(result['right_or_wrong']) for result in results['results']])
         pts_per_question = Questions.get_points_per_question()
         return total_right * pts_per_question
 
     def score_questions(self, quest_num, answer, category, correct, score={"results": []}):
-        # schema of result
         """
+        schema of result
             {results:[
                 {result: answer, correct: correct, right_or_wrong: <1 or 0>, category: category}
                 ]
@@ -62,16 +60,10 @@ class Questions:
     @staticmethod
     def load_questions():
         quests = open("json_quest_out_v2.txt", "r")
+        # quests = open("json_quest_out_only_3.txt", "r")
         questions = eval(quests.read())
         quests.close()
         return questions["questions"]["question"]
-
-    @staticmethod
-    def get_random_questions():
-        quest = Questions.load_questions()
-        total = Questions.get_number_of_questions(quest)
-        total += 1
-        return random.sample(range(1, total),(total - 1))
 
     @staticmethod
     def get_number_of_questions(questions):
@@ -90,26 +82,9 @@ class Questions:
         return num_by_cat
 
     @staticmethod
-    def get_question_raw_json(questions, num):
-        question = questions[num]
-        return question
-
-    @staticmethod
-    def get_question_order(question):
-        return question["order"]
-
-    @staticmethod
-    def get_question_text(question):
-        return question["question_text"]
-
-    @staticmethod
-    def get_answer_type(question):
-        return question['answers']['answer_type']
-
-    @staticmethod
-    def get_all_answers_in_order(answers):
-        return "{}: {}".format(answers['order'], answers["text"])
-
-    @staticmethod
-    def get_correct_answers(answer):
-        return "corrrect choice: {}".format(answer)
+    def get_question_raw_json(questions):
+        if questions and len(questions):
+            question = questions.pop()
+            return question
+        else:
+            return None
