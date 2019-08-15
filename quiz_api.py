@@ -23,7 +23,6 @@ def favico():
 
 @app.route('/get_next_question/')
 def get_next_question():
-    print(questions)
     if questions and len(questions):
         quest = str(Questions.get_question_raw_json(questions))
         quest = eval(quest)

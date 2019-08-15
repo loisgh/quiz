@@ -20,7 +20,7 @@ class Questions:
         category_totals = {}
         for quest in q:
             if quest['category'] in category_totals:
-                value = category_totals['category']
+                value = category_totals[quest['category']]
                 value += 1
             else:
                 value = 1
